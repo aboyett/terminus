@@ -1,7 +1,22 @@
 import sys
 from collections import OrderedDict
 from interspec.util import is_comment
-from interspec.debian import is_ip_option
+
+
+def is_ip_option(key, value):
+    #ip_cmds = ['ip', 'route']
+    ip_opts = ['address', 'gateway', 'network']
+    action_opts = ['up', 'down', 'pre-up', 'pre-down']
+    action_opt_route = ['ip', 'route']
+
+    value_bits = value.split()
+    has_ip = (key in ip_opts)
+    is_action = (key in action_opts)
+    #action_has_ip = (is_action and (value_bits[0] in ip_cmds))
+
+    return has_ip \
+        or (is_action and (value_bits[0] in action_opt_route or
+                           value_bits[0:1] in action_opt_route))
 
 
 class Interface(object):
@@ -24,6 +39,10 @@ class Interface(object):
 
     def __delitem__(self, key):
         del self.config[key]
+
+    def __repr__(self):
+        return "<Interface %s, mode %s, driver %s, auto %s>" % (
+            self.name, ' '.join(self.mode), self.driver, self.auto)
 
     def set_static(self):
         return self.set_mode('static')
@@ -48,8 +67,8 @@ class Interface(object):
             yield key, value
 
     def ip_options(self):
-        return filter(lambda t: is_ip_option(t[0], t[1]),
-                      self.config.iteritems())
+        return [i for i in self.config.iteritems()
+                if is_ip_option(i[0], i[1])]
 
 
 class InterfacesFile(object):
