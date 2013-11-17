@@ -1,2 +1,2 @@
-def is_comment(s):
-    return s.strip()[0] == '#'
+def is_comment(line):
+    return line.strip()[0] == '#'
