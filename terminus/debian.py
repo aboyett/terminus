@@ -1,6 +1,6 @@
 import sys
 from collections import OrderedDict
-from interspec.util import is_comment
+from terminus.util import is_comment
 
 
 def is_ip_option(key, value):
