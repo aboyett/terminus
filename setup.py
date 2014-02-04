@@ -1,13 +1,13 @@
 from setuptools import setup
-
+from terminus.version import version_str
 
 setup(
     name='terminus',
-    version='0.1.2',
+    version=version_str,
     author='Brian Cline',
     author_email='brian.cline@gmail.com',
     description=('Updates interfaces file on Debian Linux-based distros'),
-    long_description=open('README.md').read(),
+    long_description=open('README.rst').read(),
     license='MIT',
     keywords='network interface interfaces file debian configuration',
     url='https://github.com/briancline/terminus',
