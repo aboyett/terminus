@@ -13,6 +13,7 @@ setup(
     url='https://github.com/briancline/terminus',
     packages=['terminus'],
     install_requires=[],
+    test_suite='nose.collector',
     classifiers=[
         'Development Status :: 3 - Alpha',
         'License :: OSI Approved :: MIT License',
